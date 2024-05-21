@@ -36,5 +36,14 @@ def create():
 
     return jsonify(data)
 
+@app.route('/api/delete/<_id>', methods=['DELETE'])
+def remove(_id):
+
+    users.delete_one({"_id": _id})
+
+    return jsonify({
+        "message": "{} removed".format(_id)
+    })
+
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=9999, debug=True)
