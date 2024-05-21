@@ -57,5 +57,20 @@ def get_user(_id):
 
     return json.dumps(response, ensure_ascii=False).encode('utf-8')
 
+@app.route('/api/update', methods=["PUT"])
+def update():
+    data = request.get_json()
+    obj = {
+        "_id" :data['_id'],
+        "Họ và tên":data['Họ và tên'],
+        "Năm":data['Năm'],
+        "Giới tính":data['Giới tính'],
+        "Trường":data['Trường'],
+        "Quốc gia":data['Quốc gia']
+        }
+    id=data['_id']
+    users.update_one({'_id':id},{'$set':obj})
+    return jsonify(data)
+
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=9999, debug=True)
