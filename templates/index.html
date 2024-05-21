@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+            
+        }
+
+        btn{
+            padding: 10px 10px ;
+            margin-left: 10
+            0px;
+        }
+
+        .href-item{
+            padding-bottom: 20px;
+            text-align: center
+            
+        }
+        .href-item a {
+        display: inline-block;
+        margin: 0 10px;
+        }
+        .table-data {
+        margin: 0 auto;
+        text-align: center;
+        }
+
+        .table-data th,
+        .table-data td {
+        text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="href-item">
+        <a href="/">Home</a>
+        <a href="/create">Create</a>
+    </div>
+    
+    <table class="table-data">
+        <tr>
+            <th>_id</th>
+            <th>Họ và tên</th>
+            <th>Năm</th>
+            <th>Giới tính</th>
+            <th>Trường</th>
+            <th>Quốc gia</th>
+            <th>Xoá </th>
+            <th>Detail</th>
+        </tr>
+    </table>
+
+    <script>
+        let root = document.querySelector('.table-data')
+
+        fetch('http://localhost:9999/api/list')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            for (student of data){
+                const tr = document.createElement('tr')
+
+                for (key in student){
+                    const td = document.createElement('td')
+                    td.textContent = student[key]
+                    tr.appendChild(td)
+                }
+
+                let td = document.createElement('td')
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.className = 'btn btn-danger btn-sm';
+                const studentid=student['_id']
+                deleteBtn.addEventListener('click', () => deleteStudent(studentid));
+                td.appendChild(deleteBtn)
+                tr.appendChild(td)
+                let td1 = document.createElement('td')
+                let a1 = document.createElement('a')
+                a1.className='btn btn-primary btn-sm'
+                linkHref = "detail/" + student['_id']
+                a1.href = linkHref
+                a1.textContent = 'Detail'
+                td1.appendChild(a1)
+                tr.appendChild(td1)
+                root.appendChild(tr)
+                console.log(data)
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        function deleteStudent(id) {
+            fetch(`/api/delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Deleted successfully!');
+                    location.reload();
+                } else {
+                    alert('Error deleting!');
+                }
+            })
+            .catch(error => 
+            console.error(error))
+            }
+    </script>
+</body>
+</html>
+
