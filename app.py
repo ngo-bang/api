@@ -8,6 +8,10 @@ users = database["VDT"]["Student"]
 def render_index():
     return render_template ('index.html')
 
+@app.route('/create')
+def render_create():
+    return render_template ('create.html')
+
 @app.route('/api/list', methods=['GET'])
 def get_users():
     response = []
@@ -15,6 +19,22 @@ def get_users():
         response.append(i)
         
     return json.dumps(response, ensure_ascii=False).encode('utf-8')
+
+@app.route('/api/create', methods=['POST'])
+def create():
+    data = request.get_json()
+    obj = {
+        "_id" :data['_id'],
+        "Họ và tên":data['Họ và tên'],
+        "Năm":data['Năm'],
+        "Giới tính":data['Giới tính'],
+        "Trường":data['Trường'],
+        "Quốc gia":data['Quốc gia']
+        }
+
+    users.insert_one(obj)
+
+    return jsonify(data)
 
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=9999, debug=True)
