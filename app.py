@@ -21,8 +21,14 @@ def render_update(_id):
 def get_users():
     response = []
     for i in users.find():
-        response.append(i)
-        
+        obj= {
+        "_id" :i['_id'],
+        "Họ và tên":i['Họ và tên'],
+        "Giới tính":i['Giới tính'],
+        "Trường":i['Trường'],
+        }
+        response.append(obj)
+
     return json.dumps(response, ensure_ascii=False).encode('utf-8')
 
 @app.route('/api/create', methods=['POST'])
