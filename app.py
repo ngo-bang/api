@@ -12,6 +12,11 @@ def render_index():
 def render_create():
     return render_template ('create.html')
 
+@app.route('/detail/<_id>')
+def render_update(_id):
+    data={'_id':_id}
+    return render_template ('update.html',data=data)
+
 @app.route('/api/list', methods=['GET'])
 def get_users():
     response = []
@@ -44,6 +49,13 @@ def remove(_id):
     return jsonify({
         "message": "{} removed".format(_id)
     })
+    
+@app.route('/api/get/<_id>', methods=["GET"])
+def get_user(_id):
+    
+    response = users.find_one({"_id":_id})
+
+    return json.dumps(response, ensure_ascii=False).encode('utf-8')
 
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=9999, debug=True)
