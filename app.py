@@ -7,19 +7,6 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 database = pymongo.MongoClient("mongodb://localhost:27017/")
 users = database["VDT"]["Student"]
-@app.route('/')
-def render_index():
-    return render_template ('index.html')
-
-@app.route('/create')
-def render_create():
-    return render_template ('create.html')
-
-@app.route('/detail/<_id>')
-def render_update(_id):
-    data={'_id':_id}
-    return render_template ('update.html',data=data)
-
 @app.route('/api/list', methods=['GET'])
 def get_users():
     response = []
