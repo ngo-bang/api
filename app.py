@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-database = pymongo.MongoClient("mongodb://localhost:27017/")
+database = pymongo.MongoClient("mongodb://172.18.0.4:27017/")
 users = database["VDT"]["Student"]
 @app.route('/api/list', methods=['GET'])
 def get_users():
