@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request, render_template
 import json
 import pymongo
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 database = pymongo.MongoClient("mongodb://localhost:27017/")
 users = database["VDT"]["Student"]
 @app.route('/')
