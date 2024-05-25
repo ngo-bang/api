@@ -9,9 +9,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,15 +17,11 @@ jobs:
     - uses: actions/checkout@v4
     - name: setup container 
       run: |
-      docker network create --subnet=172.18.0.0/16 vdt
-      docker build -t api api
-      docker build -t database db
-      docker run -d -p 9999:9999 --name api --network vdt api
-      docker run -d -p 27017:27017 --name database --network vdt --ip 172.18.0.20 database
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        docker network create --subnet=172.18.0.0/16 vdt
+        docker build -t api api
+        docker build -t database db
+        docker run -d -p 9999:9999 --name api --network vdt api
+        docker run -d -p 27017:27017 --name database --network vdt --ip 172.18.0.20 database
     - name: Test
       run: |
         python unit_test.py
