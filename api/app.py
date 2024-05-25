@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-MONGO_HOST = os.getenv('MONGO_HOST', '172.18.0.4')
+MONGO_HOST = os.getenv('MONGO_HOST', '172.18.0.20')
 MONGO_PORT = int(os.getenv('MONGO_PORT', '27017'))
 database = pymongo.MongoClient( f"mongodb://{MONGO_HOST}:{MONGO_PORT}")
 users = database["VDT"]["Student"]
