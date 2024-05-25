@@ -24,4 +24,4 @@ jobs:
         docker run -d -p 27017:27017 --name database --network vdt --ip 172.18.0.20 database
     - name: Test
       run: |
-        python unit_test.py
+        python api/unit_test.py
