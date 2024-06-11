@@ -21,4 +21,4 @@ jobs:
         docker run -d -p 27017:27017 --name database --network vdt --ip 172.18.0.20 ngocongbang/database
     - name: Test
       run: |
-        python api/unit_test.py
+        python unit_test.py
