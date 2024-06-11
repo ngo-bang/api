@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: ngocongbang/api
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
+service:
+  type: NodePort
+  port: 9999
+  nodePort: 30005
