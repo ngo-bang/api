@@ -27,7 +27,7 @@ jobs:
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        sed -i 's/tag: ".*/tag: "$GITHUB_REF_NAME"/' values.yaml
+        sed -i 's/tag: ".*/tag: "${{  github.ref_name }}"/' values.yaml
         git add .
         git commit -m "update"
         git push origin main
