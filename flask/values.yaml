@@ -12,4 +12,4 @@ service:
 
 database:
   host: 10.108.227.157
-  port: 30010
+  port: 27017
