@@ -11,5 +11,5 @@ service:
   nodePort: 30005
 
 database:
-  host: vdt-db
+  host: 10.108.227.157
   port: 30010
