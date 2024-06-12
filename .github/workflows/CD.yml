@@ -19,14 +19,14 @@ jobs:
     - name: Build and push the Docker image
       run: docker build . -t ${{ secrets.DOCKER_USERNAME }}/api:$GITHUB_REF_NAME && docker push ${{ secrets.DOCKER_USERNAME }}/api:$GITHUB_REF_NAME
    
-    # - uses: action/checkout@v4
-    #   with:          
-    #     repository: 'ngo-bang/config-api'
-    #     token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-    # - name: update config repo
-    #   run: |
-    #     git config user.name "GitHub Actions Bot"
-    #     git config user.email "<>"
-    #     sed -i 's/tag: ".*/tag: "$GITHUB_REF_NAME"/' values.yaml
-    #     git push origin master
+    - uses: actions/checkout@v4
+      with:          
+        repository: 'ngo-bang/config-api'
+        token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+    - name: update config repo
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        sed -i 's/tag: ".*/tag: "$GITHUB_REF_NAME"/' values.yaml
+        git push origin master
     
