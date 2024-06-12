@@ -9,17 +9,19 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
+    - uses: actions/checkout@v4
+    
     - name: Login to Docker Hub
       uses: docker/login-action@v3.2.0
       with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-    - uses: actions/checkout@v4
     - name: Build and push the Docker image
       run: docker build . -t ${{ secrets.DOCKER_USERNAME }}/api:$GITHUB_REF_NAME && docker push ${{ secrets.DOCKER_USERNAME }}/api:$GITHUB_REF_NAME
+   
     - uses: action/checkout@v4
       with:          
-        repository: 'config-api'
+        repository: 'ngo-bang/config-api'
         token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
     - name: update config repo
       run: |
