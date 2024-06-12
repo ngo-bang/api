@@ -9,3 +9,7 @@ service:
   type: NodePort
   port: 9999
   nodePort: 30005
+
+database:
+  host: db
+  port: 27017
