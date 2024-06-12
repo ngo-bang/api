@@ -2,4 +2,5 @@ flask
 pymongo
 flask_cors
 requests
+prometheus_flask_exporter
 
