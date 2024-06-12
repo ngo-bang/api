@@ -11,5 +11,5 @@ service:
   nodePort: 30005
 
 database:
-  host: db
+  host: 10.110.55.166
   port: 27017
