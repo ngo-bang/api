@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+              name: api
           env:
           - name: MONGO_HOST
             value: {{ .Values.database.host | quote }}
