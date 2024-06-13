@@ -5,11 +5,19 @@ from flask_cors import CORS, cross_origin
 import os
 from prometheus_flask_exporter import PrometheusMetrics
 from flask_httpauth import HTTPBasicAuth
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 metrics = PrometheusMetrics(app,group_by='endpoint')
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["10 per minute"]
+)
 
 MONGO_HOST = os.getenv('MONGO_HOST', '172.18.0.20')
 MONGO_PORT = int(os.getenv('MONGO_PORT', '27017'))
@@ -108,5 +116,10 @@ def update():
 def unauthorized():
     response = jsonify({'message':'Not authorized'})
     return response, 403
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    response = jsonify({'messages':"ratelimit exceeded"})
+    return response, 409
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=9999, debug=False)
