@@ -84,7 +84,7 @@ def remove(_id):
 
     return jsonify({
         "message": "{} removed".format(_id)
-    }),222
+    }),200
 
 @app.route('/api/get/<_id>', methods=["GET"])
 @auth.login_required(role=['user','admin'])
